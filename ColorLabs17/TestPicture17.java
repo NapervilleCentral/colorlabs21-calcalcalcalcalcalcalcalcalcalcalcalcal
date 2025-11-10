@@ -1,10 +1,8 @@
 
 /**
- * Kevin Hayes
+ * cal
  * Test Picture Classes
- *
- * @author (Kevin Hayes)
- * @version (10-19-2016)
+
  */
 import java.awt.*;
 import java.util.*;
@@ -20,39 +18,90 @@ public class TestPicture17
   {
       //opens picture using a dialog box
       /**/
-     String fileName = FileChooser.pickAFile();
-     Picture pictObj = new Picture(fileName);
-     pictObj.explore();
+     //String fileName = FileChooser.pickAFile();
+     //Picture pictObj = new Picture(fileName);
+     //pictObj.explore();
 
      //opens a pictue using a path
      //Picture apic = new Picture("C:\\Users\\khayes\\Favorites\\Documents\APCS- Java\chap03\Curriclum 2013\Picture Color labs\images\\beach.jpg");
-     
+     // know relative path
      //relative path
-     Picture apic = new Picture("images\\beach.jpg");
-     Picture ferris1 = new Picture("images/2000 ferris wheel2.jpg");
-     Picture ferris2 = new Picture("images/2000 ferris wheel2.jpg");
-     Picture ferris3 = new Picture("images/2000 ferris wheel2.jpg");
-
-     //apic.explore();
-     ferris1.explore();
+     //Picture apic = new Picture("images\\beach.jpg"); // only jpg and bitmap and gif and tiff  (?)
+     //Picture ferris1 = new Picture("images/caterpillar.jpg");
+     //Picture ferris2 = new Picture("images/2000 ferris wheel2.jpg");
+     //Picture ferris3 = new Picture("images/2000 ferris wheel2.jpg");
+    Picture kitten = new Picture("images/kitten2.jpg");
+    //Picture pill = new Picture("images/caterpillar.jpg");
+     
+     //apic.explore(); displays picture
+     //kitten.explore();
+    // pill.explore();
      
      //makes an array of pixels
      Pixel[] pixels;
+     
+     
      //gets pixels from picture and assigns to pixels array
-     pixels = ferris1.getPixels();
+     pixels = kitten.getPixels();
     
      //how many pixels or how large array
-    System.out.println("This is a large array"+pixels.length  );
+    //System.out.println("This is a large array"+pixels.length  );
 
 
     /**/
         //access each index
     System.out.println(pixels[17]);
     //access each pixel
-    Pixel spot = ferris1.getPixel(100,100);
+    Pixel spot = kitten.getPixel(100,100);
+    Pixel spot2 = kitten.getPixel(289, 244);
+    
+    Pixel kitt = pixels[17];
+    kitt.setRed(240);
+    kitt.setGreen(240);
+    kitt.setBlue(240);
     
     System.out.println(pixels[17].getColor());
     System.out.println(spot);
+    
+    spot2.setColor(Color.yellow);
+    
+    Color newColor = new Color(255, 0, 0);
+    spot.setColor(newColor);
+    
+    for(int i = 0; i <= 200; i++) {
+        //Pixel yay = kitten.getPixel(((int)Math.random() * 10), ((int)Math.random() * 10));
+        //yay.setColor(Color.yellow);
+        (kitten.getPixel(0, i)).setColor(Color.yellow);
+        (kitten.getPixel(1, i)).setColor(Color.yellow);
+        (kitten.getPixel(2, i)).setColor(Color.yellow);
+        (kitten.getPixel(3, i)).setColor(Color.yellow);
+
+    }
+    
+    kitten.explore();
+    
+    int red;
+    Pixel[] mpixels;
+    mpixels = kitten.getPixels();
+    
+    for(Pixel spot1 : mpixels) {
+        System.out.println(spot1);
+        red = spot1.getRed();
+        red = (int)(red * .25);
+        spot1.setRed(red);
+    }
+    
+    int blue, green;
+    for(Pixel spot1 : mpixels) {
+        blue = (int)(spot1.getBlue() * Math.random());
+        spot1.setBlue(blue);
+        green = (int)(spot1.getGreen() * Math.random());
+        spot1.setGreen(green);
+        red = (int)(spot1.getRed() * Math.random());
+        spot1.setRed(red);
+    }
+    kitten.explore();
+    
 /*
     pixels[17].setColor(Color.blue);
     spot.setColor(new Color(252,252,252));
@@ -114,7 +163,7 @@ final double  FACTOR = .5;
 
   /**/ 
     //write/save a picture as a file
-    ferris1.write("images/ferris11.jpg");
+    //ferris1.write("images/ferris11.jpg");
 
     /**/
   }//main
