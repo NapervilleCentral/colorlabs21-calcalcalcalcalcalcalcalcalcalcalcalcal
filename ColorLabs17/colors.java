@@ -23,6 +23,7 @@ public class colors
       Picture p5ll = new Picture("images/kitten2.jpg");
       Picture p6ll = new Picture("images/kitten2.jpg");
       Picture p7ll = new Picture("images/kitten2.jpg");
+      Picture p8ll = new Picture("images/kitten2.jpg");
       
       p1ll.explore();
       
@@ -100,6 +101,22 @@ public class colors
       }
       
       p7ll.explore();
+      
+      p7ll.write("images/kittenpink.jpg"); // writes a copy of pic. rename pic
+      
+      pixels = p8ll.getPixels();
+      
+      for(Pixel spot : pixels) {
+         average = (int)(spot.getAverage());
+         if(average > 85)
+             spot.setColor(Color.blue);
+         if(average > 170)
+             spot.setColor(Color.white);
+         if(average < 85)
+             spot.setColor(Color.red);
+      }
+      
+      p8ll.explore();
       
   }//main
 }//class
