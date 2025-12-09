@@ -86,7 +86,7 @@ public class SheparFaireyLab
       
       p1c.explore();
       
-     p1c.write("images/final.jpg");
+     //p1c.write("images/final.jpg");
       
     }//main       
 }//class
