@@ -11,7 +11,7 @@ HOW TO START THIS PROJECT:
 AUTHORS:
 USER INSTRUCTIONS:
 
-1) who - critique
-2) who - critique
-3) who - critique
-4) who - critique
+1) cole - decrease how big the lightest bucket is
+2) mr hayes - 5th bucket
+3) kaylie - change colors bucket amount to focus on the face
+4) the sub i forgot her name - same thing as kaylie but more on the mouth
