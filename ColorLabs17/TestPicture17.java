@@ -30,7 +30,8 @@ public class TestPicture17
      //Picture ferris1 = new Picture("images/caterpillar.jpg");
      //Picture ferris2 = new Picture("images/2000 ferris wheel2.jpg");
      //Picture ferris3 = new Picture("images/2000 ferris wheel2.jpg");
-    Picture kitten = new Picture("images/kitten2.jpg");
+    //Picture kitten = new Picture("images/kitten2.jpg");
+
     //Picture pill = new Picture("images/caterpillar.jpg");
      
      //apic.explore(); displays picture
@@ -38,11 +39,11 @@ public class TestPicture17
     // pill.explore();
      
      //makes an array of pixels
-     Pixel[] pixels;
+     //Pixel[] pixels;
      
      
      //gets pixels from picture and assigns to pixels array
-     pixels = kitten.getPixels();
+     //pixels = kitten.getPixels();
     
      //how many pixels or how large array
     //System.out.println("This is a large array"+pixels.length  );
@@ -50,57 +51,57 @@ public class TestPicture17
 
     /**/
         //access each index
-    System.out.println(pixels[17]);
+    //System.out.println(pixels[17]);
     //access each pixel
-    Pixel spot = kitten.getPixel(100,100);
-    Pixel spot2 = kitten.getPixel(289, 244);
+    // Pixel spot = kitten.getPixel(100,100);
+    // Pixel spot2 = kitten.getPixel(289, 244);
     
-    Pixel kitt = pixels[17];
-    kitt.setRed(240);
-    kitt.setGreen(240);
-    kitt.setBlue(240);
+    // Pixel kitt = pixels[17];
+    // kitt.setRed(240);
+    // kitt.setGreen(240);
+    // kitt.setBlue(240);
     
-    System.out.println(pixels[17].getColor());
-    System.out.println(spot);
+    // System.out.println(pixels[17].getColor());
+    // System.out.println(spot);
     
-    spot2.setColor(Color.yellow);
+    // spot2.setColor(Color.yellow);
     
-    Color newColor = new Color(255, 0, 0);
-    spot.setColor(newColor);
+    // Color newColor = new Color(255, 0, 0);
+    // spot.setColor(newColor);
     
-    for(int i = 0; i <= 200; i++) {
-        //Pixel yay = kitten.getPixel(((int)Math.random() * 10), ((int)Math.random() * 10));
-        //yay.setColor(Color.yellow);
-        (kitten.getPixel(0, i)).setColor(Color.yellow);
-        (kitten.getPixel(1, i)).setColor(Color.yellow);
-        (kitten.getPixel(2, i)).setColor(Color.yellow);
-        (kitten.getPixel(3, i)).setColor(Color.yellow);
+    // for(int i = 0; i <= 200; i++) {
+        // //Pixel yay = kitten.getPixel(((int)Math.random() * 10), ((int)Math.random() * 10));
+        // //yay.setColor(Color.yellow);
+        // (kitten.getPixel(0, i)).setColor(Color.yellow);
+        // (kitten.getPixel(1, i)).setColor(Color.yellow);
+        // (kitten.getPixel(2, i)).setColor(Color.yellow);
+        // (kitten.getPixel(3, i)).setColor(Color.yellow);
 
-    }
+    // }
     
-    kitten.explore();
+    // kitten.explore();
     
-    int red;
-    Pixel[] mpixels;
-    mpixels = kitten.getPixels();
+    // int red;
+    // Pixel[] mpixels;
+    // mpixels = kitten.getPixels();
     
-    for(Pixel spot1 : mpixels) {
-        System.out.println(spot1);
-        red = spot1.getRed();
-        red = (int)(red * .25);
-        spot1.setRed(red);
-    }
+    // for(Pixel spot1 : mpixels) {
+        // System.out.println(spot1);
+        // red = spot1.getRed();
+        // red = (int)(red * .25);
+        // spot1.setRed(red);
+    // }
     
-    int blue, green;
-    for(Pixel spot1 : mpixels) {
-        blue = (int)(spot1.getBlue() * Math.random());
-        spot1.setBlue(blue);
-        green = (int)(spot1.getGreen() * Math.random());
-        spot1.setGreen(green);
-        red = (int)(spot1.getRed() * Math.random());
-        spot1.setRed(red);
-    }
-    kitten.explore();
+    // int blue, green;
+    // for(Pixel spot1 : mpixels) {
+        // blue = (int)(spot1.getBlue() * Math.random());
+        // spot1.setBlue(blue);
+        // green = (int)(spot1.getGreen() * Math.random());
+        // spot1.setGreen(green);
+        // red = (int)(spot1.getRed() * Math.random());
+        // spot1.setRed(red);
+    // }
+    // kitten.explore();
     
 /*
     pixels[17].setColor(Color.blue);
@@ -166,5 +167,75 @@ final double  FACTOR = .5;
     //ferris1.write("images/ferris11.jpg");
 
     /**/
+    Picture temple = new Picture("images/temple.jpg");
+    Picture canvas = new Picture("images/canvas.jpg");
+    Picture pou = new Picture("images/pou.jpg");
+    mirrorTemple(temple);
+    temple.explore();
+    copyTo(pou, canvas, 0, 0);
+    mirrorVert(pou);
+    copyTo(pou, canvas, 1000, 0);
+    canvas.explore();
   }//main
+  public static void negation(Picture source) {
+      for(int y = 0; y <= source.getHeight(); y++) {
+          for(int x = 0; x <= source.getWidth(); x++) {
+              
+          }
+      }
+  }
+  /*
+   * mirror on a vertical line in the middle of the picture based on width
+   */
+  public static void mirrorTemple(Picture source) {
+      int width = 277*2;
+      int mirrorPoint = width/2;
+      Pixel leftPixel = null;
+      Pixel rightPixel = null;
+      
+      // loop through all the rows starting with y
+      for(int y = 0; y < 150; y++) {
+          // loop from 0 to the middle (mirror point)
+          for(int x = 0; x < mirrorPoint; x++) {
+              leftPixel = source.getPixel(x, y);
+              rightPixel = source.getPixel(width - 1 - x, y);
+              rightPixel.setColor(leftPixel.getColor());
+          }
+      }
+  }
+  public static void mirrorVert(Picture source) {
+      int width = source.getWidth();
+      int mirrorPoint = width/2;
+      Pixel leftPixel = null;
+      Pixel rightPixel = null;
+      
+      // loop through all the rows starting with y
+      for(int y = 0; y < source.getHeight(); y++) {
+          // loop from 0 to the middle (mirror point)
+          for(int x = 0; x < mirrorPoint; x++) {
+              leftPixel = source.getPixel(x, y);
+              rightPixel = source.getPixel(width - 1 - x, y);
+              rightPixel.setColor(leftPixel.getColor());
+          }
+      }
+  }
+  /* copy
+   * add 2 ints to params to place it bruhhguhuhrhub hurbhbrubh
+   */
+  public static void copyTo(Picture source, Picture target, int x, int y) {
+      Pixel sourcePix = null;
+      Pixel targetPix = null;
+      
+      // loop through j columns (target x sthe starting point on the canvas)
+      for(int sourceX = 0, targetX = x; sourceX < source.getWidth(); sourceX++, targetX++) {
+          for(int sourceY = 0, targetY = y; sourceY < source.getHeight(); sourceY++, targetY++) {
+              sourcePix = source.getPixel(sourceX, sourceY);
+              targetPix = target.getPixel(targetX, targetY);
+              targetPix.setColor(sourcePix.getColor());
+          }
+      }
+  }
 }//class
+/*
+ *
+ */
