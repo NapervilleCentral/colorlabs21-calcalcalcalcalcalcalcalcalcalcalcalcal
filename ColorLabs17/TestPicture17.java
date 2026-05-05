@@ -170,17 +170,112 @@ final double  FACTOR = .5;
     Picture temple = new Picture("images/temple.jpg");
     Picture canvas = new Picture("images/canvas.jpg");
     Picture pou = new Picture("images/pou.jpg");
-    mirrorTemple(temple);
-    temple.explore();
-    copyTo(pou, canvas, 0, 0);
-    mirrorVert(pou);
-    copyTo(pou, canvas, 1000, 0);
-    canvas.explore();
+    Picture pou2 = new Picture("images/pou.jpg");
+    edgeDetection(pou2);
+    pou2.explore();
+    // mirrorTemple(temple);
+    // temple.explore();
+    // copyTo(pou, canvas, 0, 0);
+    // mirrorVert(pou);
+    // copyTo(pou, canvas, 1000, 0);
+    // canvas.explore();
   }//main
   public static void negation(Picture source) {
-      for(int y = 0; y <= source.getHeight(); y++) {
-          for(int x = 0; x <= source.getWidth(); x++) {
-              
+      Pixel pixel = null;
+      int rValue = 0;
+      int gValue = 0;
+      int bValue = 0;
+      Color inverted = new Color(255, 255, 255);
+      for(int y = 0; y < source.getHeight(); y++) {
+          for(int x = 0; x < source.getWidth(); x++) {
+              pixel = source.getPixel(x, y);
+              rValue = pixel.getRed();
+              gValue = pixel.getGreen();
+              bValue = pixel.getBlue();
+              inverted = new Color(255 - rValue, 255 - gValue, 255 - bValue);
+              pixel.setColor(inverted);
+          }
+      }
+  }
+  public static void grayScale(Picture source) {
+      Pixel pixel = null;
+      Color Gray = new Color(255, 255, 255);
+      int average = 0;
+      for(int y = 0; y < source.getHeight(); y++) {
+          for(int x = 0; x < source.getWidth(); x++) {
+              pixel = source.getPixel(x, y);
+              average = (int)(pixel.getAverage());
+              Gray = new Color(average, average, average);
+              pixel.setColor(Gray);
+          }
+      }
+  }
+  public static void sepia(Picture source) {
+      Pixel pixel = null;
+      Color sepiaBrown = new Color(112, 66, 20);
+      int rValue = 0;
+      int gValue = 0;
+      int bValue = 0;
+      //grayScale(source);
+      for(int y = 0; y < source.getHeight(); y++) {
+          for(int x = 0; x < source.getWidth(); x++) {
+              pixel = source.getPixel(x, y);
+              rValue = pixel.getRed();
+              gValue = pixel.getGreen();
+              bValue = pixel.getBlue();
+              sepiaBrown = new Color((rValue + 112)/2, (gValue + 66)/2, (bValue + 20)/2);
+              pixel.setColor(sepiaBrown);
+          }
+      }
+  }
+  public static void posterize(Picture source) {
+      int average, min = 255, max = 0, one = 0, two = 0, three = 0, four = 0, choice = 2;
+      Color c1 = new Color(51, 43, 123);
+      Color c2 = new Color(145, 69, 141);
+      Color c3 = new Color(240, 85, 119);
+      Color c4 = new Color(239, 180, 104);
+      Color c5 = new Color(243, 235, 122);
+      Color c6 = new Color(232, 236, 232);
+      Pixel pixel = null;
+      
+      for(int y = 0; y < source.getHeight(); y++) {
+          for(int x = 0; x < source.getWidth(); x++) {
+              pixel = source.getPixel(x, y);
+              average = (int)pixel.getAverage();
+              if(average < 56)              
+                  pixel.setColor(c1);
+              if(average > 55 && average < 87)
+                  pixel.setColor(c2);
+              if(average > 86 && average < 95)
+                  pixel.setColor(c3);
+              if(average > 94 && average < 110)
+                  pixel.setColor(c4);
+              if(average > 109 && average < 152)
+                  pixel.setColor(c5);
+              if(average > 150)
+                  pixel.setColor(c6);
+          }
+      }
+  }
+  public static void edgeDetection(Picture source) {
+      Pixel pixel = null;
+      Pixel pixel2 = null;
+      int average = 0;
+      int average2 = 0;
+      int detection = 8;
+      int difference = 0;
+      //grayScale(source);
+      for(int y = 0; y < source.getHeight() - 1; y++) {
+          for(int x = 0; x < source.getWidth(); x++) {
+              pixel = source.getPixel(x, y);
+              pixel2 = source.getPixel(x, y + 1);
+              average = (int)(pixel.getAverage());
+              average2 = (int)(pixel2.getAverage());
+              difference = Math.abs(average - average2);
+              if(difference > detection)
+                  pixel.setColor(Color.red);
+              else
+                  pixel.setColor(Color.black);
           }
       }
   }
@@ -222,7 +317,7 @@ final double  FACTOR = .5;
   /* copy
    * add 2 ints to params to place it bruhhguhuhrhub hurbhbrubh
    */
-  public static void copyTo(Picture source, Picture target, int x, int y) {
+  public static void copyTo(Picture source, Picture target, int x, int y) { // skipping every other pixel makes it smaller, += .5 makesit bigger
       Pixel sourcePix = null;
       Pixel targetPix = null;
       
