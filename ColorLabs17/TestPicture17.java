@@ -170,9 +170,10 @@ final double  FACTOR = .5;
     Picture temple = new Picture("images/temple.jpg");
     Picture canvas = new Picture("images/canvas.jpg");
     Picture pou = new Picture("images/pou.jpg");
+    Picture pousad = new Picture("images/pousad.jpg");
     Picture pou2 = new Picture("images/pou.jpg");
-    edgeDetection(pou2);
-    pou2.explore();
+    scaling(pou, pou2);
+    pou.explore();
     // mirrorTemple(temple);
     // temple.explore();
     // copyTo(pou, canvas, 0, 0);
@@ -278,6 +279,62 @@ final double  FACTOR = .5;
                   pixel.setColor(Color.black);
           }
       }
+  }
+  public static void blend(Picture source, Picture other) {
+      Pixel pixel = null;
+      Pixel otherP = null;
+      int rValue = 0;
+      int gValue = 0;
+      int bValue = 0;
+      int rValue2 = 0;
+      int gValue2 = 0;
+      int bValue2 = 0;
+      Color color = new Color(0, 0, 0);
+      for(int y = 0; y < source.getHeight(); y++) {
+          for(int x = 0; x < source.getWidth(); x++) {
+              pixel = source.getPixel(x, y);
+              otherP = other.getPixel(x, y);
+              rValue = pixel.getRed();
+              gValue = pixel.getGreen();
+              bValue = pixel.getBlue();
+              rValue2 = otherP.getRed();
+              gValue2 = otherP.getGreen();
+              bValue2 = otherP.getBlue();
+              color = new Color((2*rValue + rValue2)/3, (2*gValue + gValue2)/3, (2*bValue + bValue2)/3);
+              pixel.setColor(color);
+          }
+      }
+  }
+  public static void scaling(Picture source, Picture other) {
+      Pixel pixel = null;
+      Pixel pixel2 = null;
+      int var = source.getHeight();
+      Color color = new Color(0, 0, 0);
+      for(int y = source.getHeight()/4, y2 = 0; y2 < source.getHeight() && y < other.getHeight(); y++, y2 += 2) {
+          for(int x = source.getWidth()/4, x2 = 0; x2 < source.getWidth() && x < other.getWidth(); x++, x2 += 2) {
+              pixel = source.getPixel(x, y);
+              pixel2 = other.getPixel(x2, y2);
+              color = pixel2.getColor();
+              pixel.setColor(color);
+          }
+      }
+      scaling(source, other, var/2);
+  }
+  public static void scaling(Picture source, Picture other, int var) {
+      Pixel pixel = null;
+      Pixel pixel2 = null;
+      Color color = new Color(0, 0, 0);
+      while(var >= 20) {
+          for(int y = source.getHeight()/4, y2 = 0; y2 < source.getHeight() && y < other.getHeight(); y++, y2 += 2) {
+              for(int x = source.getWidth()/4, x2 = 0; x2 < source.getWidth() && x < other.getWidth(); x++, x2 += 2) {
+                  pixel = source.getPixel(x, y);
+                  pixel2 = other.getPixel(x2, y2);
+                  color = pixel2.getColor();
+                  pixel.setColor(color);
+              }
+          }
+          scaling(source, other, var/2);
+        }
   }
   /*
    * mirror on a vertical line in the middle of the picture based on width
