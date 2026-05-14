@@ -172,8 +172,25 @@ final double  FACTOR = .5;
     Picture pou = new Picture("images/pou.jpg");
     Picture pousad = new Picture("images/pousad.jpg");
     Picture pou2 = new Picture("images/pou.jpg");
-    scaling(pou, pou2, pou.getHeight()/2, pou.getWidth()/2, pou.getHeight()/2, pou.getWidth()/2);
-    pou.explore();
+    Picture pou3 = new Picture("images/pou.jpg");
+    Picture pou4 = new Picture("images/pou.jpg");
+    Picture pou5 = new Picture("images/pou.jpg");
+    Picture pou6 = new Picture("images/pou.jpg");
+    Picture pou7 = new Picture("images/pou.jpg");
+    Picture pou8 = new Picture("images/pou.jpg");
+    copyTo(pou, canvas, 0, 0);
+    mirrorVert(pou2);
+    copyTo(pou2, canvas, 1000, 0);
+    blend(pou3, pousad);
+    copyTo(pou3, canvas, 2000, 0);
+    scaling(pou4, pou5, pou.getHeight()/2, pou.getWidth()/2, pou.getHeight()/2, pou.getWidth()/2);
+    copyTo(pou4, canvas, 0, 1500);
+    posterize(pou5);
+    copyTo(pou5, canvas, 1000, 1500);
+    edgeDetection(pou8);
+    copyTo(pou8, canvas, 2000, 1500);
+    canvas.explore();
+    canvas.write("images/finalpic.jpg");
     // mirrorTemple(temple);
     // temple.explore();
     // copyTo(pou, canvas, 0, 0);
@@ -332,8 +349,8 @@ final double  FACTOR = .5;
       
       if(var == source.getHeight()/2) {
           //System.out.println(source.getHeight());
-          for(int y = var/2, y2 = 0; y2 < source.getHeight() && y < other.getHeight(); y++, y2 += 2) {
-              for(int x = var2/2, x2 = 0; x2 < source.getWidth() && x < other.getWidth(); x++, x2 += 2) {
+          for(int y = 0, y2 = 0; y2 < source.getHeight() && y < other.getHeight(); y++, y2 += 2) {
+              for(int x = 0, x2 = 0; x2 < source.getWidth() && x < other.getWidth(); x++, x2 += 2) {
                   pixel = source.getPixel(x, y);
                   pixel2 = other.getPixel(x2, y2);
                   color = pixel2.getColor();
@@ -344,8 +361,8 @@ final double  FACTOR = .5;
           return;
       }
       
-          for(int y = var + othervar3/4, y2 = 0; y2 < source.getHeight() && y < other.getHeight(); y++, y2 += othervar) {
-              for(int x = var2 + othervar4/4, x2 = 0; x2 < source.getWidth() && x < other.getWidth(); x++, x2 += othervar2) {
+          for(int y = 0, y2 = 0; y2 < source.getHeight() && y < other.getHeight(); y++, y2 += othervar) {
+              for(int x = 0, x2 = 0; x2 < source.getWidth() && x < other.getWidth(); x++, x2 += othervar2) {
                   pixel = source.getPixel(x, y);
                   pixel2 = other.getPixel(x2, y2);
                   color = pixel2.getColor();
@@ -355,6 +372,40 @@ final double  FACTOR = .5;
           scaling(source, other, var/2, var2/2, othervar3/2, othervar4/2);
     }
   }
+  // public static void scaling(Picture source, Picture other, int[] arr, int othervar3, int othervar4) {
+      // if(var >= 2 && var2 >= 2) {
+      // Pixel pixel = null;
+      // Pixel pixel2 = null;
+      // int othervar = source.getHeight()/var;
+      // int othervar2 = source.getWidth()/var2;
+      // Color color = new Color(0, 0, 0);
+      // System.out.println(othervar);
+      
+      // if(var == source.getHeight()/2) {
+          // //System.out.println(source.getHeight());
+          // for(int y = var/2, y2 = 0; y2 < source.getHeight() && y < other.getHeight(); y++, y2 += 2) {
+              // for(int x = var2/2, x2 = 0; x2 < source.getWidth() && x < other.getWidth(); x++, x2 += 2) {
+                  // pixel = source.getPixel(x, y);
+                  // pixel2 = other.getPixel(x2, y2);
+                  // color = pixel2.getColor();
+                  // pixel.setColor(color);
+              // }
+          // }
+          // scaling(source, other, var/2, var2/2, source.getHeight(), source.getWidth());
+          // return;
+      // }
+      
+          // for(int y = var + othervar3/4, y2 = 0; y2 < source.getHeight() && y < other.getHeight(); y++, y2 += othervar) {
+              // for(int x = var2 + othervar4/4, x2 = 0; x2 < source.getWidth() && x < other.getWidth(); x++, x2 += othervar2) {
+                  // pixel = source.getPixel(x, y);
+                  // pixel2 = other.getPixel(x2, y2);
+                  // color = pixel2.getColor();
+                  // pixel.setColor(color);
+              // }
+          // }
+          // scaling(source, other, var/2, var2/2, othervar3/2, othervar4/2);
+    // }
+  // }
   /*
    * mirror on a vertical line in the middle of the picture based on width
    */
